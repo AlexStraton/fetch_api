@@ -38,7 +38,12 @@ function App() {
                 .map((theme) => theme.replace("Browsing: ", ""))
                 .join(", ")}
             </div>
-            <div>Number of downloads: {book.download_count}</div>
+            <div>
+              Number of downloads:{" "}
+              {book.download_count
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </div>
           </ul>
         );
       })}
