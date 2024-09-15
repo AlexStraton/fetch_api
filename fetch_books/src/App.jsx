@@ -10,16 +10,19 @@ import {
   Button,
   Box,
 } from "@mui/material";
+import Dropdown from "./components/Dropdown";
 
 function App() {
   const [books, setBooks] = useState([]);
+  //const [ascending, setAscending] = useState([]);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const allBooks = await getBooks();
-        setBooks(allBooks.results);
-        console.log(allBooks.results);
+        const sortedBooks = [...allBooks.results].sort((a, b) => a.id - b.id);
+        setBooks(sortedBooks);
+        console.log(books);
       } catch (error) {
         console.log(error);
       }
@@ -29,7 +32,8 @@ function App() {
 
   return (
     <>
-      <div> AMAZING BOOKS</div>
+      <h1> Books Sorted by ID (Ascending)</h1>
+      <Dropdown />
       <Box
         sx={{
           display: "flex",
@@ -49,7 +53,15 @@ function App() {
                 <Typography variant='h5' component='div'>
                   {book.title}
                 </Typography>
-
+                <Typography variant='h7' component='div'>
+                  {book.id}
+                </Typography>
+                <Typography variant='h8' component='div'>
+                  Subjects:{" "}
+                  {book.subjects.map((subject) => {
+                    return subject.toUpperCase();
+                  })}
+                </Typography>
                 <Typography
                   variant='body2'
                   sx={{ color: "text.secondary", fontSize: 14 }}>
