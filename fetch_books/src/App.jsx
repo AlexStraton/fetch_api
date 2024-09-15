@@ -22,7 +22,7 @@ function App() {
         const allBooks = await getBooks();
         const sortedBooks = [...allBooks.results].sort((a, b) => a.id - b.id);
         setBooks(sortedBooks);
-        console.log(books);
+        console.log(books, "books");
       } catch (error) {
         console.log(error);
       }
@@ -66,8 +66,11 @@ function App() {
                   variant='body2'
                   sx={{ color: "text.secondary", fontSize: 14 }}>
                   Author:{" "}
-                  {book.authors.map((author) => {
-                    return author.name;
+                  {books.map((book) => {
+                    console.log(book.authors, "book.aiuthors");
+                    if (book.authors[0].birth_year > 1824) {
+                      return book.authors[0].name;
+                    }
                   })}
                 </Typography>
                 <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
